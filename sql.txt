@@ -1,11 +1,11 @@
 Table structure:
 CREATE TABLE [dbo].[Employee](
 	[Emp_ID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	[Emp_Name] [varchar](50) NULL,
-	[Emp_Salary] [numeric](18, 0) NULL,
-	[Emp_Address] [text] NULL,
-	[Emp_State] [varchar](50) NULL,
-	[Emp_Position] [varchar](50) NULL,
+	[Emp_Name] [varchar](50) NOT NULL,
+	[Emp_Salary] [numeric](18, 0) NOT NULL,
+	[Emp_Address] [text] NOT NULL,
+	[Emp_State] [varchar](50) NOT NULL,
+	[Emp_Position] [varchar](50) NOT NULL,
 	[Joindate] [date]
 );
 
@@ -46,7 +46,7 @@ GO
 
 Eexceution:
 Insert
-exec sp_emp @Id=0,@Name='Krishna',@Salary=20000,@Address='Thane',@State='Maharastra',@Joindate='2022-08-01',@Position='HR',@Address1='abcdefg',@Flag='Insert'
+exec sp_emp @Id=0,@Name='Krishna',@Salary=20000,@Address='Thane',@State='Maharastra',@Joindate='2022-08-01',@Position='HR',@Flag='Insert'
 
 Update
 EXEC sp_emp @Id=4,@Name='Vinay',@Salary=50000,@Address='Gansoli',@State='Maharastra',@Joindate='2022-05-01',@Position='Developer',@Flag='Update'
@@ -56,6 +56,3 @@ EXEC sp_emp @Id=3,@Flag='Select'
 
 Delete
 exec sp_emp @Id=2,@Flag='Delete'
-
-
-
