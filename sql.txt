@@ -1,0 +1,61 @@
+Table structure:
+CREATE TABLE [dbo].[Employee](
+	[Emp_ID] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	[Emp_Name] [varchar](50) NULL,
+	[Emp_Salary] [numeric](18, 0) NULL,
+	[Emp_Address] [text] NULL,
+	[Emp_State] [varchar](50) NULL,
+	[Emp_Position] [varchar](50) NULL,
+	[Joindate] [date]
+);
+
+
+Store Procedure:
+
+create or alter procedure sp_emp
+(@Id int=0,
+@Name varchar(50)='',
+@Salary numeric(18,0)=0,
+@Address text='',
+@State varchar(50)='',
+@Position varchar(50)='',
+@Joindate date='2022-08-01',
+@Flag varchar(50)=''
+)As
+
+BEGIN
+	IF @Flag='Insert'
+	BEGIN
+		INSERT INTO Employee(Emp_Name,Emp_Salary,Emp_Address,Emp_State,Emp_Position,Joindate) values(@Name,@Salary,@Address,@State,@Position,@Joindate)
+	END
+	ELSE IF @Flag='Update'
+	BEGIN
+		update Employee set Emp_Name=@Name,Emp_Salary=@Salary,Emp_Address=@Address,Emp_State=@State,Emp_Position=@Position,Joindate=@Joindate where Emp_ID=@Id;
+	END
+	ELSE IF @Flag='Delete'
+	BEGIN
+		Delete from Employee where Emp_ID=@Id;
+	END
+	ELSE IF @Flag='Select'
+	BEGIN
+		select * from Employee where Emp_ID=@Id;
+	END
+END
+GO
+
+
+Eexceution:
+Insert
+exec sp_emp @Id=0,@Name='Krishna',@Salary=20000,@Address='Thane',@State='Maharastra',@Joindate='2022-08-01',@Position='HR',@Address1='abcdefg',@Flag='Insert'
+
+Update
+EXEC sp_emp @Id=4,@Name='Vinay',@Salary=50000,@Address='Gansoli',@State='Maharastra',@Joindate='2022-05-01',@Position='Developer',@Flag='Update'
+
+Select
+EXEC sp_emp @Id=3,@Flag='Select'
+
+Delete
+exec sp_emp @Id=2,@Flag='Delete'
+
+
+
